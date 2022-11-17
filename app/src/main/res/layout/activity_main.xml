@@ -10,6 +10,7 @@
         android:id="@+id/tv_labellat"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="Lat:"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +29,7 @@
         android:id="@+id/tv_labellon"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="lon:"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +48,7 @@
         android:id="@+id/tv_labelaltitude"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Altitude:"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +66,7 @@
         android:id="@+id/tv_labelaccuracy"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Accuracy:"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +84,7 @@
         android:id="@+id/tv_labelspeed"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Speed:"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +102,7 @@
         android:id="@+id/tv_labelsensor"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Sensor:"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +120,7 @@
         android:id="@+id/tv_labelupdates"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Updates:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sw_locationsupdates" />
@@ -158,6 +165,7 @@
         android:id="@+id/tv_lbladdress"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Address:"
         app:layout_constraintStart_toStartOf="parent"
@@ -172,5 +180,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="WayPoint:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_labelsensor" />
+
+    <TextView
+        android:id="@+id/tv_waypoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_waypoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="New Waypoint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_waypoint" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_waypoint_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Show Waypoint List"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_waypoint" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Showmap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Show in Map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_waypoint_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
