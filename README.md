@@ -10,3 +10,4 @@ Keynotes-<br/>
 > Lat Long<br/>
 > Google Play Service <br/>
 
+fusedLocationProviderClient - give me data phone Last Location.
