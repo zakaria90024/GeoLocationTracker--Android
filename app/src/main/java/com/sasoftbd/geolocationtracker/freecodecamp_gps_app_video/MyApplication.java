@@ -1,4 +1,4 @@
-package com.sasoftbd.geolocationtracker;
+package com.sasoftbd.geolocationtracker.freecodecamp_gps_app_video;
 
 import android.app.Application;
 import android.location.Location;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyApplication extends Application {
+
     public static MyApplication singleton;
     private List<Location> myLocations;
 
@@ -27,4 +28,5 @@ public class MyApplication extends Application {
         singleton = this;
         myLocations = new ArrayList<>();
     }
+
 }

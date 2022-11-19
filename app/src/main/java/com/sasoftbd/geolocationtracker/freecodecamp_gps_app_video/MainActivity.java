@@ -1,4 +1,4 @@
-package com.sasoftbd.geolocationtracker;
+package com.sasoftbd.geolocationtracker.freecodecamp_gps_app_video;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +24,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.sasoftbd.geolocationtracker.R;
+import com.sasoftbd.geolocationtracker.gps_location_runbackground.MainActivity2;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_update, tv_address, tv_waypointCounts;
 
     Switch sw_locationUpdate, sw_gps;
-    AppCompatButton btn_newWayPoint, btn_showWayPoing, btn_showInMap;
+    AppCompatButton btn_newWayPoint, btn_showWayPoing, btn_showInMap, btn_ClearData;
 
     boolean updateOn = false;
     //current location
@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btn_showWayPoing = findViewById(R.id.btn_waypoint_list);
         tv_waypointCounts = findViewById(R.id.tv_waypoint);
         btn_showInMap = findViewById(R.id.btn_Showmap);
-
-
+        btn_ClearData = findViewById(R.id.btn_ClearData);
 
 
         locationRequest = new LocationRequest();
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         btn_showInMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(MainActivity.this, MapsActivity.class );
+                Intent in = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(in);
             }
         });
@@ -111,8 +110,20 @@ public class MainActivity extends AppCompatActivity {
         btn_showWayPoing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  inn = new Intent(MainActivity.this, ShowSavedLocations.class);
+                Intent inn = new Intent(MainActivity.this, ShowSavedLocations.class);
                 startActivity(inn);
+            }
+        });
+
+        btn_ClearData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyApplication myApplication = (MyApplication) getApplicationContext();
+                savedLocations = myApplication.getmylocations();
+                savedLocations.clear();
+                tv_waypointCounts.setText("0");
+                Toast.makeText(myApplication, "Clear Successful!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -221,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 tv_address.setText(addresses.get(0).getAddressLine(0));
-            }catch (Exception e){
+            } catch (Exception e) {
                 tv_address.setText("Unable to get Street Address");
             }
 
@@ -256,5 +267,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    public void WhenClickFourgroundClick(View view) {
+        Intent in = new Intent(this, MainActivity2.class);
+        startActivity(in);
+    }
 }

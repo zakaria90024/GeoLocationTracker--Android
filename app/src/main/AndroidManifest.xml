@@ -2,11 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".gps_location_runbackground.LocationApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,7 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoLocationTracker"
         tools:targetApi="31">
+        <activity
+            android:name=".gps_location_runbackground.MainActivity2"
+            android:exported="true">
 
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -33,29 +43,33 @@
             android:value="AIzaSyCfC1Sb-mUFEHmVrpOTcKZ3lsBR_azrTm0" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".freecodecamp_gps_app_video.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".ShowSavedLocations"
+            android:name=".freecodecamp_gps_app_video.ShowSavedLocations"
             android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".freecodecamp_gps_app_video.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <service
+            android:name=".gps_location_runbackground.LocationService"
+            android:foregroundServiceType="location" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.sasoftbd.geolocationtracker;
+package com.sasoftbd.geolocationtracker.freecodecamp_gps_app_video;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -14,6 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sasoftbd.geolocationtracker.R;
 import com.sasoftbd.geolocationtracker.databinding.ActivityMapsBinding;
 
 import java.util.List;
@@ -41,7 +42,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         savedLocations = myApplication.getmylocations();
 
 
-
     }
 
     /**
@@ -62,13 +62,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        LatLng  lastLocationPlaced = sydney;
+        LatLng lastLocationPlaced = sydney;
 
-        for (Location location: savedLocations){
+        for (Location location : savedLocations) {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
-            markerOptions.title("Lat:"+location.getLatitude()+"Long:"+location.getLongitude());
+            markerOptions.title("Lat:" + location.getLatitude() + "Long:" + location.getLongitude());
             mMap.addMarker(markerOptions);
 
             //for pin click show lat long
@@ -81,12 +81,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //lets count the number the pin is clicked
 
                 Integer clicks = (Integer) marker.getTag();
-                if(clicks == null){
+                if (clicks == null) {
                     clicks = 0;
                 }
                 clicks++;
                 marker.setTag(clicks);
-                Toast.makeText(MapsActivity.this, "Maker:"+marker.getTitle()+""+marker.getTag(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity.this, "Maker:" + marker.getTitle() + "" + marker.getTag(), Toast.LENGTH_LONG).show();
                 return true;
             }
         });
