@@ -12,3 +12,4 @@ Keynotes-<br/>
 
 fusedLocationProviderClient - give me data phone Last Location.<br/>
 note> must have on device location icon
+Singleton Only one instance of the class can be instantiated
