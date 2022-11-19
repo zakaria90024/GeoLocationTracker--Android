@@ -5,7 +5,7 @@ GPS satellite, Cell tower, WIFI locations
 GPS - Most precise(sunidressto) use most battery power.
 
 Keynotes-<br/>
-> Fused Location Provider Client<br/>
+> FusedLocationProviderClient<br/>
 > Geo Code<br/>
 > Lat Long<br/>
 > Google Play Service <br/>
