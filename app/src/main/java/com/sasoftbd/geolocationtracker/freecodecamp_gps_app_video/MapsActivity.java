@@ -22,6 +22,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     List<Location> savedLocations;
+    LatLng latLng;
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -65,16 +66,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng lastLocationPlaced = sydney;
 
         for (Location location : savedLocations) {
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            Marker marker = mMap.addMarker( new MarkerOptions()
+                    .position(latLng).title("London").snippet("Person"+savedLocations)
+            );
+            marker.showInfoWindow();
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
             markerOptions.title("Lat:" + location.getLatitude() + "Long:" + location.getLongitude());
             mMap.addMarker(markerOptions);
-
             //for pin click show lat long
             lastLocationPlaced = latLng;
+
+
         }
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocationPlaced, 12.0f));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
@@ -86,7 +92,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 clicks++;
                 marker.setTag(clicks);
-                Toast.makeText(MapsActivity.this, "Maker:" + marker.getTitle() + "" + marker.getTag(), Toast.LENGTH_LONG).show();
+
+//                Marker markers = mMap.addMarker( new MarkerOptions()
+//
+//                        .position(latLng).title(marker.getTitle()).snippet("Person"+savedLocations)
+//                );
+//                markers.showInfoWindow();
+
+                Toast.makeText(MapsActivity.this, "Title:" + marker.getTitle() + "Tag" + marker.getTag(), Toast.LENGTH_LONG).show();
                 return true;
             }
         });
