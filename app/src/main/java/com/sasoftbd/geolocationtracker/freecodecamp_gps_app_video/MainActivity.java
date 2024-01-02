@@ -26,6 +26,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.sasoftbd.geolocationtracker.R;
 import com.sasoftbd.geolocationtracker.gps_location_runbackground.MainActivity2;
+import com.sasoftbd.geolocationtracker.location_on_without_setting.AutoOnLocationActivity;
 
 import java.util.List;
 
@@ -76,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
-        locationRequest.setFastestInterval(1000 * FAST_UPDATE_INTERVAL);
+        locationRequest.setInterval(100 * DEFAULT_UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(100 * FAST_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         locationCallback = new LocationCallback() {
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 updateUIValue(locationResult.getLastLocation());
+                Toast.makeText(MainActivity.this, "called", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -270,5 +272,9 @@ public class MainActivity extends AppCompatActivity {
     public void WhenClickFourgroundClick(View view) {
         Intent in = new Intent(this, MainActivity2.class);
         startActivity(in);
+    }
+
+    public void WhenClickGpsPermission(View view) {
+        startActivity(new Intent(this, AutoOnLocationActivity.class));
     }
 }

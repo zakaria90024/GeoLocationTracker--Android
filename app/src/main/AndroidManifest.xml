@@ -20,9 +20,11 @@
         android:theme="@style/Theme.GeoLocationTracker"
         tools:targetApi="31">
         <activity
+            android:name=".location_on_without_setting.AutoOnLocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".gps_location_runbackground.MainActivity2"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -38,9 +40,12 @@
              project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
+        <!-- android:value="AIzaSyCfC1Sb-mUFEHmVrpOTcKZ3lsBR_azrTm0" /> -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCfC1Sb-mUFEHmVrpOTcKZ3lsBR_azrTm0" />
+            android:value="AIzaSyBe7gVeZi9AQDa3VequhQwhJUzyutvHs2Q" />
 
         <activity
             android:name=".freecodecamp_gps_app_video.MapsActivity"
@@ -49,7 +54,6 @@
         <activity
             android:name=".freecodecamp_gps_app_video.ShowSavedLocations"
             android:exported="false">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -62,6 +66,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
