@@ -42,7 +42,7 @@ public class AutoOnLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_auto_on_location);
 
 
-        TextView textViewTv = findViewById(R.id.tv);
+        textViewTv = findViewById(R.id.tv);
         btn_CheckStatus = findViewById(R.id.btn_CheckStatus);
         btn_OnGPS = findViewById(R.id.btn_OnGPS);
 
@@ -94,13 +94,14 @@ public class AutoOnLocationActivity extends AppCompatActivity {
         locationSettingBuilder.setAlwaysShow(true);
         SettingsClient settingsClient = LocationServices.getSettingsClient(this);
         Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(locationSettingBuilder.build());
+
+
         task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                 textViewTv.setText("Location Setting (GPS) is ON");
             }
         });
-
 
         task.addOnFailureListener(this, new OnFailureListener() {
             @Override
