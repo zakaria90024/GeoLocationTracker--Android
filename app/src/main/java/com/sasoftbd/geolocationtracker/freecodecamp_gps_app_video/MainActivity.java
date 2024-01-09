@@ -212,6 +212,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
+
     private void updateUIValue(Location location) {
 
         try {
