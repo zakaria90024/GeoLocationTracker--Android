@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -90,15 +92,15 @@ public class AutoOnLocationActivity extends AppCompatActivity {
         locationRequest.setFastestInterval(100 * FAST_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-        locationCallback = new LocationCallback() {
-
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                //updateUIValue(locationResult.getLastLocation());
-                Toast.makeText(AutoOnLocationActivity.this, "called", Toast.LENGTH_SHORT).show();
-            }
-        };
+//        locationCallback = new LocationCallback() {
+//
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                super.onLocationResult(locationResult);
+//                //updateUIValue(locationResult.getLastLocation());
+//                Toast.makeText(AutoOnLocationActivity.this, "called", Toast.LENGTH_SHORT).show();
+//            }
+//        };
 
 
         textViewTv = findViewById(R.id.tv);
@@ -116,6 +118,7 @@ public class AutoOnLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 buttonSwitchGps_ON(view);
+                forceGpsON();
             }
         });
 
@@ -128,7 +131,7 @@ public class AutoOnLocationActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 
-        forceGpsON();
+
 
 //        updateGPS();
 //
@@ -177,6 +180,16 @@ public class AutoOnLocationActivity extends AppCompatActivity {
 
 
     private void updateGPS() {
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                updateUIValue(locationResult.getLastLocation());
+            }
+        };
+
+
         //get gps permission
         //get current location fused client
         //update ui
@@ -197,6 +210,19 @@ public class AutoOnLocationActivity extends AppCompatActivity {
 
         }
     }
+    private void updateUIValue(Location lastLocation) {
+
+        Geocoder geocoder = new Geocoder(AutoOnLocationActivity.this);
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lastLocation.getLatitude(), lastLocation.getLongitude(), 1);
+            Toast.makeText(this, "Lat=" + lastLocation.getLatitude() + "\nLong=" + lastLocation.getLongitude() + "\nAddress=" + addresses.get(0).getAddressLine(0), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
 
     public void buttonSwitchGps_ON(View view) {
 
