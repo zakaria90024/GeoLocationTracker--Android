@@ -6,9 +6,14 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -20,6 +25,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -28,7 +34,10 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -119,19 +128,21 @@ public class AutoOnLocationActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 
-        updateGPS();
+        forceGpsON();
 
-        Handler handler = new Handler();
-
-// Post a Runnable to update the UI after a 2-second delay
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Update UI elements here
-                startLocationUpdate();
-            }
-        }, 5000); // Delay in milliseconds
-
+//        updateGPS();
+//
+//        Handler handler = new Handler();
+//
+//// Post a Runnable to update the UI after a 2-second delay
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                // Update UI elements here
+//                startLocationUpdate();
+//            }
+//        }, 5000); // Delay in milliseconds
+//
 
     }
 
@@ -251,4 +262,117 @@ public class AutoOnLocationActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //it work for location get and
+        final LocationSettingsStates states = LocationSettingsStates.fromIntent(data);
+        switch (requestCode) {
+            case 101:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        // All required changes were successfully made
+                        //Toast.makeText(AttendanceActivity.this,states.isLocationPresent()+"",Toast.LENGTH_SHORT).show();
+                        updateGPS();
+                        startLocationUpdate();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        // The user was asked to change settings, but chose not to
+                        // Toast.makeText(AttendanceActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+
+
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        forceGpsON();
+                                        break;
+
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        ActivityCompat.finishAffinity(AutoOnLocationActivity.this);
+                                        break;
+                                }
+                            }
+                        };
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AutoOnLocationActivity.this);
+                        builder.setMessage("Location is Mandatory").setPositiveButton("Try Again", dialogClickListener)
+                                .setNegativeButton("Exit", dialogClickListener).show();
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+
+
+    }
+
+    void forceGpsON() {
+
+        LocationRequest locationRequest1 = LocationRequest.create();
+        locationRequest1.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest1.setInterval(10000);
+        locationRequest1.setFastestInterval(10000 / 2);
+        LocationSettingsRequest.Builder locationSettingBuilder = new LocationSettingsRequest.Builder();
+        locationSettingBuilder.addLocationRequest(locationRequest1);
+        locationSettingBuilder.setAlwaysShow(true);
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+
+        Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(locationSettingBuilder.build());
+
+
+        task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
+            @Override
+            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+
+                updateGPS();
+
+            }
+        });
+
+
+        task.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    // All location settings are satisfied. The client can initialize location
+                    // requests here.
+                } catch (ApiException exception) {
+                    switch (exception.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            // Location settings are not satisfied. But could be fixed by showing the
+                            // user a dialog.
+                            try {
+                                // Cast to a resolvable exception.
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                // Show the dialog by calling startResolutionForResult(),
+                                // and check the result in onActivityResult().
+                                resolvable.startResolutionForResult(
+                                        AutoOnLocationActivity.this,
+                                        101);
+                            } catch (IntentSender.SendIntentException e) {
+                                // Ignore the error.
+                            } catch (ClassCastException e) {
+                                // Ignore, should be an impossible error.
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            // Location settings are not satisfied. However, we have no way to fix the
+                            // settings so we won't show the dialog.
+                            break;
+                    }
+                }
+            }
+        });
+
+
+
+    }
+
+
 }
