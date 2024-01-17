@@ -26,6 +26,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.sasoftbd.geolocationtracker.R;
 import com.sasoftbd.geolocationtracker.gps_location_runbackground.MainActivity2;
+import com.sasoftbd.geolocationtracker.latlangfromgooglemap.LatLangGoogleMapActivity;
 import com.sasoftbd.geolocationtracker.location_on_without_setting.AutoOnLocationActivity;
 
 import java.util.List;
@@ -278,5 +279,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void WhenClickGpsPermission(View view) {
         startActivity(new Intent(this, AutoOnLocationActivity.class));
+    }
+
+    public void whenOpenLatLangGoogle(View view) {
+        startActivity(new Intent(this, LatLangGoogleMapActivity.class));
     }
 }

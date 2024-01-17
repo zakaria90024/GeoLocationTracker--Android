@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -21,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoLocationTracker"
         tools:targetApi="31">
+        <activity
+            android:name=".latlangfromgooglemap.LatLangGoogleMapActivity"
+            android:exported="false" />
         <activity
             android:name=".location_on_without_setting.AutoOnLocationActivity"
             android:exported="false" />
