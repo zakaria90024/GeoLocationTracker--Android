@@ -25,6 +25,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.sasoftbd.geolocationtracker.R;
+import com.sasoftbd.geolocationtracker.forground_location.ForegroundActivity;
 import com.sasoftbd.geolocationtracker.gps_location_runbackground.MainActivity2;
 import com.sasoftbd.geolocationtracker.latlangfromgooglemap.LatLangGoogleMapActivity;
 import com.sasoftbd.geolocationtracker.location_on_without_setting.AutoOnLocationActivity;
@@ -283,5 +284,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void whenOpenLatLangGoogle(View view) {
         startActivity(new Intent(this, LatLangGoogleMapActivity.class));
+    }
+
+    public void WhenClickGpsForeground(View view) {
+        startActivity(new Intent(this, ForegroundActivity.class));
     }
 }
