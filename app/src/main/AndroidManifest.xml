@@ -56,6 +56,10 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
+            android:name=".forground_location.ForegroundActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
             android:name=".freecodecamp_gps_app_video.ShowSavedLocations"
             android:exported="false">
             <meta-data
@@ -79,6 +83,13 @@
         <service
             android:name=".gps_location_runbackground.LocationService"
             android:foregroundServiceType="location" />
+
+        <service
+
+            android:name=".forground_location.ForegroundService"
+            android:enabled="true"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
