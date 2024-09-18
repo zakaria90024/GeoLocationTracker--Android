@@ -16,56 +16,54 @@ import com.sasoftbd.geolocationtracker.R;
 //}
 
 
-
 import android.Manifest;
 
-        import android.app.AlertDialog;
+import android.app.AlertDialog;
 
-        import android.content.Context;
+import android.content.Context;
 
-        import android.content.DialogInterface;
+import android.content.DialogInterface;
 
-        import android.content.Intent;
+import android.content.Intent;
 
-        import android.content.IntentSender;
+import android.content.IntentSender;
 
-        import android.location.LocationManager;
+import android.location.LocationManager;
 
-        import android.net.Uri;
+import android.net.Uri;
 
-        import android.os.Bundle;
+import android.os.Bundle;
 
-        import android.provider.Settings;
+import android.provider.Settings;
 
-        import android.view.View;
+import android.view.View;
 
-        import android.widget.Button;
+import android.widget.Button;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.api.ResolvableApiException;
 
-        import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationRequest;
 
-        import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationServices;
 
-        import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsRequest;
 
-        import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsResponse;
 
-        import com.karumi.dexter.Dexter;
+import com.karumi.dexter.Dexter;
 
-        import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.MultiplePermissionsReport;
 
-        import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.PermissionToken;
 
-        import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequest;
 
-        import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-        import java.util.List;
-
+import java.util.List;
 
 
 public class ForegroundActivity extends AppCompatActivity {
@@ -81,9 +79,7 @@ public class ForegroundActivity extends AppCompatActivity {
         setContentView(R.layout.activity_foreground);
 
 
-
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
 
 
         btn_get = findViewById(R.id.btn_get);
@@ -139,12 +135,11 @@ public class ForegroundActivity extends AppCompatActivity {
                         }
 
 
-
                         // check for permanent denial of any permission
 
                         if (report.isAnyPermissionPermanentlyDenied()) {
 
-                            // permission is denied permenantly, navigate user to app settings
+                            // permission is denied permanently, navigate user to app settings
 
                             showSettingsDialog();
 
